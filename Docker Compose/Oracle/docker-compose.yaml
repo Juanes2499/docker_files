@@ -1,17 +1,18 @@
-# Posibles imágenes 
+# Posibles imágenes
 # https://hub.docker.com/r/gvenzl/oracle-xe
 # https://hub.docker.com/r/oracleinanutshell/oracle-xe-11g
 
 version: '3.8'
 
-services: 
+services:
   oracle:
-    image: oracleinanutshell/oracle-xe-11g:latest
+    image: gvenzl/oracle-xe:11
     ports:
       - 1521:1521
-      - 5500:5500
+    environment:
+    - ORACLE_PASSWORD=oracle
     volumes:
-      - 'oracle_vol:/u01/app/oracle/oradata'
+      - 'oracle_vol:/u01/app/oracle'
 volumes:
   oracle_vol:
     driver: local
