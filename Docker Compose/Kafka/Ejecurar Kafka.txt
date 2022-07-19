@@ -1,0 +1,1 @@
+Para ejecutar Kafka usar el siguiente comando -> docker-compose -f ./zk-single-kafka-single.yml up
