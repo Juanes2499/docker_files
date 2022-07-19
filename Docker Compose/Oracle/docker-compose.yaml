@@ -1,3 +1,7 @@
+# Posibles imágenes 
+# https://hub.docker.com/r/gvenzl/oracle-xe
+# https://hub.docker.com/r/oracleinanutshell/oracle-xe-11g
+
 version: '3.8'
 
 services: 
@@ -7,7 +11,7 @@ services:
       - 1521:1521
       - 5500:5500
     volumes:
-      - 'oracle_vol:/opt/oracle/oradata'
+      - 'oracle_vol:/u01/app/oracle/oradata'
 volumes:
   oracle_vol:
     driver: local
