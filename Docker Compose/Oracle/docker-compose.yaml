@@ -1,0 +1,17 @@
+version: '3.8'
+
+services: 
+  oracle:
+    image: oracleinanutshell/oracle-xe-11g:latest
+    ports:
+      - 1521:1521
+      - 5500:5500
+    volumes:
+      - 'oracle_vol:/opt/oracle/oradata'
+volumes:
+  oracle_vol:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '${PWD}/oracle_data'
