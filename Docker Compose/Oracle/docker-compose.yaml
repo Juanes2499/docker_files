@@ -12,11 +12,11 @@ services:
     environment:
     - ORACLE_PASSWORD=oracle
     volumes:
-      - 'oracle_vol:/u01/app/oracle'
-volumes:
-  oracle_vol:
-    driver: local
-    driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: '${PWD}/oracle_data'
+      - '${PWD}/oracle_data:/u01/app/oracle'
+# volumes:
+#   oracle_vol:
+#     driver: local
+#     driver_opts:
+#       type: 'none'
+#       o: 'bind'
+#       device: '${PWD}/oracle_data'

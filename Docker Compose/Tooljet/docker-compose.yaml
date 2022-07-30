@@ -38,19 +38,19 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - postgres:/var/lib/postgresql/data
+      - ${PWD}/postgres_data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=tooljet_development
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=postgres
 
 volumes:
-  postgres:
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: ${PWD}/postgres_data
+  # postgres:
+  #   driver: local
+  #   driver_opts:
+  #     o: bind
+  #     type: none
+  #     device: ${PWD}/postgres_data
   certs:
   logs:
   fallbackcerts:
