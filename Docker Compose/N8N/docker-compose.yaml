@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  n8n:
+    container_name: n8n-container
+    image: n8nio/n8n:latest
+    env_file: .env
+    depends_on:
+      - postgres
+    ports:
+      - 5678:5678
+    volumes: 
+      - '${PWD}/n8n_data/home/node/.n8n'
+    command: n8n start
+
+  postgres:
+    image: postgres:13
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - '${PWD}/postgres_data:/var/lib/postgresql/data'
+    environment:
+      - POSTGRES_DB=n8n_development
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=postgres
