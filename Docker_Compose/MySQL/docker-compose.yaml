@@ -13,10 +13,23 @@ services:
       - MYSQL_DATABASE=development
       - MYSQL_USER=admin
       - MYSQL_PASSWORD=admin
-      - MYSQL_ROOT_PASSWORD=mysql
+      - MYSQL_ROOT_PASSWORD=root
 
-  adminer:
-    image: adminer
-    #restart: always
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    links:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
     ports:
-      - 8083:8080
+      - 8081:80
+
+  # adminer:
+  #   image: adminer
+  #   #restart: always
+  #   ports:
+  #     - 8083:8080
