@@ -20,3 +20,6 @@ services:
 #       type: 'none'
 #       o: 'bind'
 #       device: '${PWD}/oracle_data'
+
+#username: system
+#password: oracle
