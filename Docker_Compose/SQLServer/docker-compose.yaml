@@ -1,0 +1,17 @@
+#https://www.dotnetthailand.com/storage/sql-server/docker-compose-for-sql-server
+version: '3.8'
+
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest 
+    container_name: sqlserver2019
+    ports:
+      - 1433:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=1234#abcd*
+      - MSSQL_PID=Developer
+    volumes:
+      - '${PWD}/sqlserver_data:/var/opt/mssql/data'
+
+#Antes de ejecutar el script ejecutar: sudo chown 10001  sqlserver_data/
