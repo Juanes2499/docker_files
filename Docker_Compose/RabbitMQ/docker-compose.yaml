@@ -7,8 +7,8 @@ services:
         - 5672:5672
         - 15672:15672
     volumes:
-        - /home/juane/POCs_Bancolombia/volumes_docker/rabbitmq/data/:/var/lib/rabbitmq/
-        - /home/juane/POCs_Bancolombia/volumes_docker/rabbitmq/log/:/var/log/rabbitmq
+        - '${PWD}/rabbitmq_data/data/:/var/lib/rabbitmq/'
+        - '${PWD}/rabbitmq_data/log/:/var/log/rabbitmq'
     networks:
         - rabbitmq_go_net
 
