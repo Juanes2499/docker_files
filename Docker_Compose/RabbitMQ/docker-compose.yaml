@@ -15,3 +15,5 @@ services:
 networks:
   rabbitmq_go_net:
     driver: bridge
+   
+#Una vez creada la carpeta de log por docker-compose, el contenedor va a fallar, se debe usar el siguiente comando: sudo chwon -R systemd-network:root log/
