@@ -1,21 +1,26 @@
-version: '3.8'
-
 services:
   n8n:
     container_name: n8n-container
     image: n8nio/n8n:latest
-    env_file: .env
+    restart: always
     depends_on:
       - postgres
     ports:
       - 5678:5678
     volumes: 
-      - '${PWD}/n8n_data/home/node/.n8n'
-    command: n8n start
+      - '${PWD}/n8n_data:/home/node/.n8n'
+    environment:
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=n8n_development
+      - DB_POSTGRESDB_USER=admin
+      - DB_POSTGRESDB_PASSWORD=postgres
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=false
 
   postgres:
     image: postgres:13
-    #restart: always
+    restart: always
     ports:
       - 5432:5432
     volumes:

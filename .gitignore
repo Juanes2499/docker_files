@@ -1,0 +1,21 @@
+# Ignore all directories containing "data" in their name
+*data*/
+**/data*/
+**/*data*/
+
+# Ignore specific data directories (if you want to be more explicit)
+# postgres_data/
+# n8n_data/
+# mysql_data/
+# redis_data/
+
+# Common files and directories to ignore
+.env
+.DS_Store
+*.log
+*.tmp
+*.temp
+
+# Docker specific
+.dockerignore
+docker-compose.override.yml
