@@ -1,0 +1,106 @@
+version: '3.8'
+
+services:
+  spark-master:
+    build: .
+    container_name: spark-master
+    hostname: spark-master
+    ports:
+      - "8089:8080"  # Spark Master Web UI
+      - "7077:7077"  # Spark Master Port
+      - "4040:4040"  # Spark Application Web UI
+    environment:
+      - SPARK_MODE=master
+      - SPARK_MASTER_HOST=spark-master
+      - SPARK_MASTER_PORT=7077
+      - SPARK_LOCAL_IP=spark-master
+    volumes:
+      - ./data:/opt/spark/data
+      - ./notebooks:/opt/spark/notebooks
+      - ./jobs:/opt/spark/jobs
+      - spark-work:/opt/spark/work
+      - spark-logs:/opt/spark/logs
+      - spark-tmp:/opt/spark/tmp
+    networks:
+      - spark-network
+
+  spark-worker-1:
+    build: .
+    container_name: spark-worker-1
+    hostname: spark-worker-1
+    ports:
+      - "8081:8081"  # Worker Web UI
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_WORKER_CORES=2
+      - SPARK_WORKER_MEMORY=2g
+      - SPARK_LOCAL_IP=spark-worker-1
+    depends_on:
+      - spark-master
+    volumes:
+      - ./data:/opt/spark/data
+      - ./notebooks:/opt/spark/notebooks
+      - ./jobs:/opt/spark/jobs
+      - spark-work:/opt/spark/work
+      - spark-logs:/opt/spark/logs
+      - spark-tmp:/opt/spark/tmp
+    networks:
+      - spark-network
+
+  spark-worker-2:
+    build: .
+    container_name: spark-worker-2
+    hostname: spark-worker-2
+    ports:
+      - "8082:8081"  # Worker Web UI
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_WORKER_CORES=2
+      - SPARK_WORKER_MEMORY=2g
+      - SPARK_LOCAL_IP=spark-worker-2
+    depends_on:
+      - spark-master
+    volumes:
+      - ./data:/opt/spark/data
+      - ./notebooks:/opt/spark/notebooks
+      - ./jobs:/opt/spark/jobs
+      - spark-work:/opt/spark/work
+      - spark-logs:/opt/spark/logs
+      - spark-tmp:/opt/spark/tmp
+    networks:
+      - spark-network
+
+  jupyter:
+    build: .
+    container_name: spark-jupyter
+    hostname: spark-jupyter
+    ports:
+      - "8888:8888"  # Jupyter Notebook
+    environment:
+      - SPARK_MODE=jupyter
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_DRIVER_HOST=spark-jupyter
+      - SPARK_LOCAL_IP=spark-jupyter
+    depends_on:
+      - spark-master
+    volumes:
+      - ./data:/opt/spark/data
+      - ./notebooks:/opt/spark/notebooks
+      - ./jobs:/opt/spark/jobs
+      - spark-work:/opt/spark/work
+      - spark-logs:/opt/spark/logs
+      - spark-tmp:/opt/spark/tmp
+    networks:
+      - spark-network
+
+networks:
+  spark-network:
+    driver: bridge
+
+volumes:
+  spark-data:
+  spark-work:
+  spark-logs:
+  spark-tmp:
