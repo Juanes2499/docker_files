@@ -1,0 +1,24 @@
+services:
+  oracle11g:
+    image: oracleinanutshell/oracle-xe-11g
+    container_name: oracle11g
+    ports:
+      - "1521:1521"
+      - "8080:8080"
+    # Esta imagen usa por defecto usuario: system, contraseña: oracle
+    volumes:
+      - oracle11g-data:/u01/app/oracle
+    restart: unless-stopped
+    networks:
+      - oracle-network
+
+volumes:
+  oracle11g-data:
+
+networks:
+  oracle-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.25.0.0/16
+          gateway: 172.25.0.1
